@@ -30,6 +30,7 @@
   <a href="#architecture">Architecture</a> ·
   <a href="docs/ARCHITECTURE.md">System docs</a> ·
   <a href="#quick-start">Quick start</a> ·
+  <a href="#authentication-and-roles">Authentication</a> ·
   <a href="#security-posture">Security</a>
 </p>
 
@@ -224,6 +225,35 @@ Air-gapped and GitHub-bundle flows, SHA-256 pinning, and multi-honeypot-per-host
 Then in Central enter **host, control port, encrypted channel, barrier token**, **Test connection**, **Add**.
 
 Interactive alternative on the honeypot host: `scripts/deploy.sh`.
+
+## Authentication and roles
+
+Central supports optional OpenID Connect (OIDC) single sign-on through
+Keycloak for human operators. The supported modes are:
+
+- `none` for local development and tests only;
+- `legacy` for token-based operator login;
+- `oidc` for Keycloak SSO with role-based access control.
+
+Set `VAIVAR_CENTRAL_AUTH_MODE=oidc` and provide the OIDC issuer, client, and
+redirect settings for a shared deployment. The public examples include a
+dedicated Keycloak stack ([`docker-compose.keycloak.yml`](docker-compose.keycloak.yml)),
+an environment template ([`.env.keycloak.example`](.env.keycloak.example)),
+and the importable realm definition ([`keycloak/realm-vaivar.json`](keycloak/realm-vaivar.json)).
+
+Keycloak group membership maps to four Central roles. The highest matching
+group wins:
+
+| Keycloak group | Central role | Access |
+|----------------|--------------|--------|
+| `vaivar-viewer` | `viewer` | Read-only dashboard, events, nodes, and metrics |
+| `vaivar-user` | `user` | Viewer access plus honeypot enrollment and operations |
+| `vaivar-admin` | `admin` | User access plus integrations and exports |
+| `vaivar-superadmin` | `superadmin` | Admin access plus system, release, and data-management operations |
+
+Central issues its own signed session after OIDC login. Edge ingest and
+metrics keep separate machine tokens; they are not human Keycloak roles.
+Never commit real Keycloak credentials, client secrets, or admin passwords.
 
 ## Integrations
 
