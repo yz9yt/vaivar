@@ -1,0 +1,29 @@
+{
+  "name": "vaivar",
+  "version": "1.0.0",
+  "description": "AI Security Training Platform - vAIvar",
+  "main": "dist/app/main.js",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "start": "node dist/app/main.js",
+    "start:central": "node dist/central/main.js",
+    "dev": "tsx src/app/main.ts"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "jose": "^5.10.0"
+  }
+}

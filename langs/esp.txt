@@ -1,0 +1,165 @@
+; Language: Español (esp)
+; Keys match specific dashboard fields by ID or data-i18n attribute
+
+; Topbar
+search_placeholder=Buscar honeypots, sesiones, eventos…
+lang_selector=Idioma
+
+; Sidebar navigation
+nav_overview=Vista general
+nav_honeypots=Honeypots
+nav_activity=Actividad
+nav_sessions=Sesiones
+nav_settings=Ajustes
+
+; Overview section
+overview_title=Vista general
+overview_subtitle=Estado de la flota, actividad reciente y lo que necesita tu atención.
+panel_activity=Actividad
+panel_stream=Eventos recientes
+panel_fleet=Honeypots
+link_view_all=Ver todo
+kpi_honeypots=Honeypots
+kpi_events=Eventos
+kpi_flags=Banderas
+kpi_sessions=Sesiones
+
+; Honeypots section
+honeypots_title=Honeypots
+filter_all=Todos
+filter_online=Conectado
+filter_http=HTTP
+filter_https=HTTPS
+filter_encrypted=Cifrado
+filter_legacy=Legado
+filter_connection=Conexión
+filter_protocol=Protocolo
+btn_enroll=Añadir honeypot
+btn_unenroll=Eliminar honeypot
+btn_add_honeypot=Añadir honeypot
+btn_open=Abrir
+btn_back=Atrás
+copy_site_id=Clic para copiar ID del sitio
+status_connected=Conectado
+status_delayed=Retrasado
+status_waiting=Esperando la primera sincronización
+empty_fleet_title=Añade tu primer honeypot
+empty_fleet_body=Esta Central aún no tiene honeypots registrados.
+empty_fleet_helper=Usa Generar comando de despliegue para instalar desde la Central sin Internet, o conéctate por SSH, ejecuta scripts/deploy.sh y luego añade host, puerto de control, canal cifrado y token de barrera.
+empty_filter_title=Ningún honeypot coincide
+label_control_port=Puerto de API de control
+label_exposed_port=Puerto expuesto del honeypot
+label_service_profile=Perfil de servicio
+label_simulates=Simula
+label_template=Plantilla de contenido
+label_template_version=Versión de plantilla
+label_install_dir=Directorio de instalación
+label_compose_project=Proyecto Compose
+label_site_id=ID del honeypot
+label_tls_fingerprint=Huella del certificado TLS
+help_tls_fingerprint=No necesaria para el canal de control cifrado por la aplicación.
+label_control_channel=Canal de control
+help_control_channel=El RPC cifrado mantiene ilegibles los datos de control aunque el socket sea HTTP.
+help_multi_instance=Usa un directorio y proyecto distintos si varios honeypots comparten servidor.
+profile_all=Todas las superficies
+profile_http=API HTTP
+profile_wiki=Wiki
+profile_openapi=OpenAPI
+profile_mcp=MCP
+btn_apply_honeypot_config=Aplicar al honeypot
+btn_apply_template=Aplicar plantilla
+bootstrap_title=Despliegue aprobado por la Central
+bootstrap_hint=Genera un comando de un solo uso para un host sin Internet. Descarga la imagen aprobada desde esta Central y registra el nodo automáticamente.
+btn_prepare_deploy=Generar comando de despliegue
+btn_copy_command=Copiar comando
+bootstrap_token_warning=Este comando contiene un token de bootstrap de un solo uso. Mantenlo privado y ejecútalo antes de que caduque.
+
+; Activity section
+activity_title=Actividad
+activity_subtitle=Eventos y sesiones de tus honeypots.
+btn_export_events=Exportar JSON
+filter_events_all=Todos los eventos
+filter_events_session=Sesiones
+filter_events_flag=Banderas
+filter_events_command=Comandos
+activity_mode_events=Eventos
+activity_mode_sessions=Sesiones
+empty_events_title=Aún no hay eventos
+empty_events_body=Aparecen aquí tras la primera sincronización.
+empty_sessions_title=Aún no hay sesiones
+
+; Sessions section
+sessions_title=Sesiones
+sessions_subtitle=Sesiones observadas en tus honeypots.
+empty_sessions=Aún no hay sesiones.
+
+; Settings section
+settings_title=Ajustes
+settings_auth=Usuarios y permisos
+settings_integrations=Integraciones
+settings_retention=Retención (días)
+settings_operator_token=Token de operador
+settings_ingest_token=Token de ingesta
+settings_admin_token=Token de administrador
+settings_sync=Intervalo de actualización
+settings_sync_interval=Actualización del navegador
+settings_sync_help=Cada cuánto refresca este navegador. No cambia el sondeo del servidor (30s) y solo se guarda aquí.
+settings_retention_stub=La retención aún no se guarda.
+settings_section_integrations=Integraciones
+settings_section_users=Usuarios y permisos
+settings_section_infrastructure=Infraestructura
+settings_section_general=General
+btn_test_connection=Probar conexión
+btn_save_settings=Guardar ajustes
+infra_unavailable=Telemetría de infraestructura no disponible
+users_role_admin=Administrador
+users_role_operator=Operador
+
+; Enroll modal
+modal_enroll_title=Añadir honeypot
+modal_enroll_hint=Central se conecta al cliente. El cliente no necesita esta dirección.
+label_host=Host / dirección IP
+label_port=Puerto de API de control
+label_token=Token de barrera
+label_protocol=Canal de control
+hint_token=El token de barrera autentica el nodo y deriva el canal de control cifrado. Nunca viaja por la red.
+help_separate_host=Debe ser el host del honeypot, no esta Central.
+btn_cancel=Cancelar
+btn_verify_enroll=Añadir honeypot
+enroll_duplicate=Este honeypot ya está registrado.
+enroll_open_existing=Abrir honeypot existente
+toast_honeypot_added=Honeypot añadido. Esperando la primera sincronización.
+
+; Drawer
+drawer_tab_summary=Resumen
+drawer_tab_activity=Actividad
+drawer_tab_config=Configuración
+drawer_tab_ops=Operaciones
+
+; Integrations
+btn_add_integration=Añadir integración
+btn_save_language=Guardar idioma
+toast_language_saved=Idioma guardado correctamente.
+toast_integration_saved=Integración guardada correctamente.
+integration_help_cti=Inteligencia de red vía STIX 2.1
+integration_help_siem=Exportación HEC a Splunk
+integration_help_metrics=Métricas Prometheus
+integration_help_dashboard=Referencia de dashboard Grafana
+
+; Search / chrome
+search_pages=Páginas
+search_no_results=Sin resultados para '{q}'
+footer_central=vAIvar Central
+updated_ago=Actualizado {time}
+
+; Tooltips / general
+tooltip_theme=Cambiar tema claro / oscuro
+tooltip_refresh=Actualizar ahora
+tooltip_unenroll=Eliminar honeypot
+tooltip_inspect=Inspeccionar
+btn_apply_language=Aplicar
+btn_revert_language=Revertir
+lang_sub=Selecciona el idioma de la interfaz. Utiliza los ficheros de traducción del servidor.
+hint_language_workflow=Selecciona un idioma, pulsa Aplicar para previsualizar y Guardar para conservarlo.
+toast_language_applied=Vista previa de idioma aplicada. Pulsa Guardar para conservarlo o Revertir para restaurar.
+toast_language_reverted=Idioma restaurado a la preferencia guardada.

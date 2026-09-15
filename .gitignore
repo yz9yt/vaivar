@@ -1,0 +1,14 @@
+/node_modules/
+/dist/
+/coverage/
+/deploy/
+/data/
+/logs/
+releases/
+/tools/
+.env
+.env.*
+!.env.example
+!.env.central.example
+!.env.keycloak.example
+*.log

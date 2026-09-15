@@ -1,0 +1,58 @@
+# Existing central collector, deployed separately from honeypots.
+# docker compose --env-file <central.env> -f docker-compose.central.yml up -d --build
+services:
+  vaivar-central:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vaivar:latest
+    command: ["node", "dist/central/main.js"]
+    user: "0:0"
+    init: true
+    restart: unless-stopped
+    ports:
+      - "${CENTRAL_BIND:-0.0.0.0}:${CENTRAL_PORT:?CENTRAL_PORT is required}:${VAIVAR_CENTRAL_PORT:?VAIVAR_CENTRAL_PORT is required}"
+    environment:
+      VAIVAR_CENTRAL_PORT: ${VAIVAR_CENTRAL_PORT:?VAIVAR_CENTRAL_PORT is required}
+      VAIVAR_CENTRAL_INGEST_TOKEN: ${VAIVAR_CENTRAL_INGEST_TOKEN:?VAIVAR_CENTRAL_INGEST_TOKEN is required}
+      VAIVAR_CENTRAL_OPERATOR_TOKEN: ${VAIVAR_CENTRAL_OPERATOR_TOKEN:?VAIVAR_CENTRAL_OPERATOR_TOKEN is required}
+      VAIVAR_CENTRAL_ADMIN_TOKEN: ${VAIVAR_CENTRAL_ADMIN_TOKEN:?VAIVAR_CENTRAL_ADMIN_TOKEN is required}
+      # Superadmin token (RBAC). Optional: omit to disable the superadmin tier.
+      VAIVAR_CENTRAL_SUPERADMIN_TOKEN: ${VAIVAR_CENTRAL_SUPERADMIN_TOKEN:-}
+      VAIVAR_CENTRAL_AUTH_MODE: ${VAIVAR_CENTRAL_AUTH_MODE:-legacy}
+      VAIVAR_CENTRAL_KEY: ${VAIVAR_CENTRAL_KEY:?VAIVAR_CENTRAL_KEY is required}
+      DATA_PATH: /data/vaivar-central
+      VAIVAR_RELEASE_DIR: ${VAIVAR_RELEASE_DIR:-/data/vaivar-central/releases}
+      # Splunk HEC export. Opt-in: only present when both URL and token are set.
+      VAIVAR_SPLUNK_HEC_URL: ${VAIVAR_SPLUNK_HEC_URL:-}
+      VAIVAR_SPLUNK_HEC_TOKEN: ${VAIVAR_SPLUNK_HEC_TOKEN:-}
+      VAIVAR_SPLUNK_HEC_INDEX: ${VAIVAR_SPLUNK_HEC_INDEX:-}
+      VAIVAR_SPLUNK_HEC_SOURCE: ${VAIVAR_SPLUNK_HEC_SOURCE:-}
+      # OpenCTI EXTERNAL_IMPORT connector. Opt-in: only present when both
+      # URL and token are set.
+      VAIVAR_OPENCTI_URL: ${VAIVAR_OPENCTI_URL:-}
+      VAIVAR_OPENCTI_TOKEN: ${VAIVAR_OPENCTI_TOKEN:-}
+      VAIVAR_OPENCTI_CONFIDENCE: ${VAIVAR_OPENCTI_CONFIDENCE:-}
+      VAIVAR_OPENCTI_ORG_ID: ${VAIVAR_OPENCTI_ORG_ID:-}
+      VAIVAR_OPENCTI_MAX_RETRIES: ${VAIVAR_OPENCTI_MAX_RETRIES:-}
+      VAIVAR_OPENCTI_MAX_QUEUE: ${VAIVAR_OPENCTI_MAX_QUEUE:-}
+    volumes:
+      - vaivar-central-data:/data/vaivar-central
+      # Bind-mount approved release bundles so an operator/CI can copy a new
+      # artifact and manifest without rebuilding or restarting Central.
+      - ${VAIVAR_RELEASE_HOST_DIR:-./releases}:/data/vaivar-central/releases:ro
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+process.env.VAIVAR_CENTRAL_PORT+'/health',{signal:AbortSignal.timeout(5000)}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 6s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  vaivar-central-data:

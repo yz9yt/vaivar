@@ -1,0 +1,40 @@
+# Deploy on each target server over SSH: attacker surface + authenticated API.
+# Register the server address, API port and token in the separate central console.
+services:
+  vaivar:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vaivar:latest
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${HONEYPOT_BIND:?HONEYPOT_BIND is required}:${HONEYPOT_PORT:?HONEYPOT_PORT is required}:${VAIVAR_PORT_HONEYPOT:?VAIVAR_PORT_HONEYPOT is required}"
+      - "${API_BIND:?API_BIND is required}:${HTTP_PORT:?HTTP_PORT is required}:${VAIVAR_PORT_HTTP:?VAIVAR_PORT_HTTP is required}"
+    environment:
+      VAIVAR_MASTER_SECRET: ${VAIVAR_MASTER_SECRET:?VAIVAR_MASTER_SECRET is required}
+      VAIVAR_API_TOKEN: ${VAIVAR_API_TOKEN:?VAIVAR_API_TOKEN is required}
+      VAIVAR_SITE_ID: ${VAIVAR_SITE_ID:?VAIVAR_SITE_ID is required}
+      VAIVAR_PORT_HTTP: ${VAIVAR_PORT_HTTP:?VAIVAR_PORT_HTTP is required}
+      VAIVAR_PORT_HONEYPOT: ${VAIVAR_PORT_HONEYPOT:?VAIVAR_PORT_HONEYPOT is required}
+      VAIVAR_HONEYPOT_PROFILE: ${VAIVAR_HONEYPOT_PROFILE:-all}
+      VAIVAR_CONTROL_CHANNEL: ${VAIVAR_CONTROL_CHANNEL:?VAIVAR_CONTROL_CHANNEL is required}
+      DATA_PATH: /data/vaivar
+    volumes:
+      - vaivar-data:/data/vaivar
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "const net=require('net');const http=require('http');const fail=()=>process.exit(1);const req=http.get({hostname:'127.0.0.1',port:Number(process.env.VAIVAR_PORT_HTTP),path:'/health'},r=>{let body='';r.setEncoding('utf8');r.on('data',c=>body+=c);r.on('end',()=>{try{if(r.statusCode!==200)throw new Error('health');const b=JSON.parse(body);if(!Number.isInteger(b.honeypot_port))throw new Error('port');const s=net.createConnection(Number(b.honeypot_port),'127.0.0.1');s.on('connect',()=>{s.end();process.exit(0)});s.on('error',fail);setTimeout(fail,5000)}catch{fail()}})});req.on('error',fail);req.setTimeout(5000,()=>{req.destroy();fail()})"]
+      interval: 10s
+      timeout: 6s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  vaivar-data:

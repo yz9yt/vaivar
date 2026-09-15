@@ -1,0 +1,165 @@
+; Language: English (eng)
+; Keys match specific dashboard fields by ID or data-i18n attribute
+
+; Topbar
+search_placeholder=Search honeypots, sessions, events…
+lang_selector=Language
+
+; Sidebar navigation
+nav_overview=Overview
+nav_honeypots=Honeypots
+nav_activity=Activity
+nav_sessions=Sessions
+nav_settings=Settings
+
+; Overview section
+overview_title=Overview
+overview_subtitle=Fleet health, recent activity, and anything that needs you.
+panel_activity=Activity
+panel_stream=Recent events
+panel_fleet=Honeypots
+link_view_all=View all
+kpi_honeypots=Honeypots
+kpi_events=Events
+kpi_flags=Flags
+kpi_sessions=Sessions
+
+; Honeypots section
+honeypots_title=Honeypots
+filter_all=All
+filter_online=Connected
+filter_http=HTTP
+filter_https=HTTPS
+filter_encrypted=Encrypted
+filter_legacy=Legacy
+filter_connection=Connection
+filter_protocol=Protocol
+btn_enroll=Add honeypot
+btn_unenroll=Remove honeypot
+btn_add_honeypot=Add honeypot
+btn_open=Open
+btn_back=Back
+copy_site_id=Click to copy Site ID
+status_connected=Connected
+status_delayed=Delayed
+status_waiting=Waiting for first sync
+empty_fleet_title=Add your first honeypot
+empty_fleet_body=This Central has no enrolled honeypots yet.
+empty_fleet_helper=Use Generate deploy command for a Central-approved offline install, or SSH into the VPS, run scripts/deploy.sh there, then add it here with host, control port, encrypted channel, and barrier token.
+empty_filter_title=No honeypots match
+label_control_port=Control API port
+label_exposed_port=Exposed honeypot port
+label_service_profile=Service profile
+label_simulates=Simulates
+label_template=Content template
+label_template_version=Template version
+label_install_dir=Install directory
+label_compose_project=Compose project
+label_site_id=Honeypot site ID
+label_tls_fingerprint=TLS certificate fingerprint
+help_tls_fingerprint=Not needed for the application-encrypted control channel.
+label_control_channel=Control channel
+help_control_channel=Application-encrypted RPC keeps control data unreadable on a plain HTTP socket.
+help_multi_instance=Use a different directory and project when several honeypots share one host.
+profile_all=All surfaces
+profile_http=HTTP API
+profile_wiki=Wiki
+profile_openapi=OpenAPI
+profile_mcp=MCP
+btn_apply_honeypot_config=Apply to honeypot
+btn_apply_template=Apply template
+bootstrap_title=Central-approved deployment
+bootstrap_hint=Generate a one-time command for a host with no Internet. It downloads the approved image from this Central and registers the node automatically.
+btn_prepare_deploy=Generate deploy command
+btn_copy_command=Copy command
+bootstrap_token_warning=This command contains a one-time bootstrap token. Keep it private and use it before it expires.
+
+; Activity section
+activity_title=Activity
+activity_subtitle=Events and sessions from your honeypots.
+btn_export_events=Export JSON
+filter_events_all=All events
+filter_events_session=Sessions
+filter_events_flag=Flags
+filter_events_command=Commands
+activity_mode_events=Events
+activity_mode_sessions=Sessions
+empty_events_title=No events yet
+empty_events_body=They appear here after a honeypot syncs.
+empty_sessions_title=No sessions yet
+
+; Sessions section
+sessions_title=Sessions
+sessions_subtitle=Sessions observed on your honeypots.
+empty_sessions=No sessions yet.
+
+; Settings section
+settings_title=Settings
+settings_auth=Users & permissions
+settings_integrations=Integrations
+settings_retention=Retention (days)
+settings_operator_token=Operator token
+settings_ingest_token=Ingest token
+settings_admin_token=Admin token
+settings_sync=Refresh interval
+settings_sync_interval=Browser refresh
+settings_sync_help=How often this browser refreshes. Does not change the server poller (30s) and is stored only in this browser.
+settings_retention_stub=Retention is not persisted yet.
+settings_section_integrations=Integrations
+settings_section_users=Users & permissions
+settings_section_infrastructure=Infrastructure
+settings_section_general=General
+btn_test_connection=Test connection
+btn_save_settings=Save settings
+infra_unavailable=Infrastructure telemetry is not available
+users_role_admin=Admin
+users_role_operator=Operator
+
+; Enroll modal
+modal_enroll_title=Add honeypot
+modal_enroll_hint=Central connects out to the client. The client does not need this address.
+label_host=Host / IP Address
+label_port=Control API port
+label_token=Barrier token
+label_protocol=Control channel
+hint_token=The barrier token authenticates the node and derives the encrypted control channel. It never travels on the wire.
+help_separate_host=Must be the honeypot host, not this Central.
+btn_cancel=Cancel
+btn_verify_enroll=Add honeypot
+enroll_duplicate=This honeypot is already registered.
+enroll_open_existing=Open existing honeypot
+toast_honeypot_added=Honeypot added. Waiting for first sync.
+
+; Drawer
+drawer_tab_summary=Summary
+drawer_tab_activity=Activity
+drawer_tab_config=Configuration
+drawer_tab_ops=Operations
+
+; Integrations
+btn_add_integration=Add Integration
+btn_save_language=Save Language
+toast_language_saved=Language updated successfully.
+toast_integration_saved=Integration saved successfully.
+integration_help_cti=Network intelligence via STIX 2.1
+integration_help_siem=Splunk HEC export
+integration_help_metrics=Prometheus metrics collection
+integration_help_dashboard=Grafana dashboard reference
+
+; Search / chrome
+search_pages=Pages
+search_no_results=No results for '{q}'
+footer_central=vAIvar Central
+updated_ago=Updated {time}
+
+; Tooltips / general
+tooltip_theme=Toggle Light / Dark Mode
+tooltip_refresh=Refresh Now
+tooltip_unenroll=Remove honeypot
+tooltip_inspect=Inspect
+btn_apply_language=Apply
+btn_revert_language=Revert
+lang_sub=Select interface language. Uses bundled locale files from the server.
+hint_language_workflow=Select a language, click Apply to preview, and Save to keep permanently.
+toast_language_applied=Language preview applied. Click Save to keep, or Revert to restore.
+toast_language_reverted=Language restored to saved preference.
