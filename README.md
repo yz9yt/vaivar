@@ -21,6 +21,7 @@
   <img alt="License Apache-2.0" src="https://img.shields.io/badge/license-Apache%202.0-6366f1">
   <img alt="Docker-first" src="https://img.shields.io/badge/deploy-Docker-0db7ed">
   <img alt="Node 18+" src="https://img.shields.io/badge/node-%3E%3D18-43853d">
+  <a href="https://deepwiki.com/yz9yt/vaivar"><img alt="Ask DeepWiki" src="https://deepwiki.com/badge.svg"></a>
 </p>
 
 <p align="center">
